@@ -40,8 +40,15 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	if m.Content == "hello BOT" {
+	if m.Content == "hello bot" {
 		_, _ = s.ChannelMessageSend(m.ChannelID, "HELLO")
+		return
+	}
+	for _, user := range m.Mentions {
+		if user.ID == BotID {
+			_, _ = s.ChannelMessageSend(m.ChannelID, "<@"+m.Author.ID+"> YEEH DAWG YOU MENTIONED ME ?")
+			return
+		}
 	}
 
 }
